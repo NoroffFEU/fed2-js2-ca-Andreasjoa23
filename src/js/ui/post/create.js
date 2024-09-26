@@ -1,17 +1,27 @@
 import { createPost } from "../../api/post/create";
 
 export async function onCreatePost(event) {
-    console.log("createdPost")
-    event.preventDefault();
+    event.preventDefault(); 
+    const title = event.target.title.value;
+    const body = event.target.body.value; 
+    const tags = event.target.tags.value.split(",").map(tag => tag.trim());
+    const mediaUrl = event.target.mediaUrl.value;
+    const mediaAlt = event.target.mediaAlt.value;
+  
+    const media = mediaUrl ? { url: mediaUrl, alt: mediaAlt } : null;
+  
+    try {
+      const newPost = await createPost({ title, body, tags, media });
+      console.log("Post created successfully:", newPost);
 
-    const formData = new formData(event.target);
+      document.getElementById("message").textContent = "Post created successfully, going to index page...";
 
-    const createPostContent = {
-        title: formData.get("title"),
-        body: formData.get("body"),
-        tags: formData.get("tags"),
-        media: formData.get("media"),
-    };
+      event.target.reset(); 
 
-    createPost(createPostContent)
-}
+      setTimeout(() => {
+        window.location.href = '/';
+    }, 2000);
+    } catch (error) {
+      console.error("Error while creating post:", error);
+    }
+  }

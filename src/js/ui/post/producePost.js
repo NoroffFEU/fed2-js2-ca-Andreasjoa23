@@ -37,7 +37,6 @@ export const renderPosts = (userPosts, id) => {
         container.appendChild(imageDiv);
         imageDiv.appendChild(image);
         container.appendChild(viewPostBtn);
-
         outerContainer.appendChild(container);
     });
 };

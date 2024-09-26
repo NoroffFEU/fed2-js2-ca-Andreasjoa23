@@ -1,27 +1,66 @@
-import { API_SOCIAL_POSTS, API_KEY } from "../constants";
+import { API_SOCIAL_POSTS, API_SOCIAL_PROFILES } from "../constants";
 import { headers } from "../headers";
 
-export async function readPost() {}
+export async function readPost(id) {
+  try {
+      const response = await fetch(`${API_SOCIAL_POSTS}/${id}?_author=true`, { 
+          method: "GET",
+          headers: headers(),
+      });
+      if (response.ok) {
+          const data = await response.json();
+          console.log("Post:", data);
+          return data;
+      } else {
+          console.error("Failed to fetch post:", response.status);
+      }
+  } catch (error) {
+      console.error("Error fetching post:", error);
+  }
+}
 
 export async function readPosts(limit = 12, page = 1, tag) {
-    const queryParameters = `?limit=${limit}&page=${page}&_author=true&_reactions=true&_comments=true`;
-    try {
-      const response = await fetch(API_SOCIAL_POSTS + queryParameters, {
-        method: "GET",
-        headers: headers(),
-      });
+  try {
+    const params = new URLSearchParams({
+      limit: limit.toString(),
+      page: page.toString(),
+      ...(tag && { tag: tag }), 
+      _author: true,
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-  
-        const userPosts = data.data;
-  
-        return userPosts;
-      }
-    } catch (error) {
-      console.log(error);
-      alert("There was ann error trying to fetch the user posts");
+    const response = await fetch(`${API_SOCIAL_POSTS}?${params}`, {
+      method: "GET",
+      headers: headers(),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const posts = data.data;
+      return posts;
     }
+  } catch (error) {
+    console.error("Error fetching posts:", error);
   }
+}
 
-export async function readPostsByUser(username, limit = 12, page = 1, tag) {}
+export async function readPostsByUser(name, limit = 12, page = 1, tag) {
+  try {
+    const params = new URLSearchParams({
+      limit: limit.toString(),
+      page: page.toString(),
+      ...(tag && { tag: tag }), 
+    });
+
+    const response = await fetch(`${API_SOCIAL_PROFILES}/${name}/posts?${params}`, {
+      method: "GET",
+      headers: headers(),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const posts = data.data;
+      console.log(`Posts by user ${name}:`, posts);
+      return posts;
+    }
+  } catch (error) {
+    console.error(`Error fetching posts by user ${name}:`, error);
+  }
+}
