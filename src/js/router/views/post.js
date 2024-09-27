@@ -10,7 +10,6 @@ if (postId) {
     document.body.innerHTML = "<p>No post selected.</p>";
 }
 
-
 async function loadPost(postId) {
     try {
         const post = await readPost(postId);
@@ -27,6 +26,7 @@ async function loadPost(postId) {
 
 const userInfo = JSON.parse(localStorage.getItem('userData'));
 const loggedInUserName = userInfo?.name; 
+
 function displayPost(post) {
     const postContainer = document.createElement('div');
     postContainer.classList.add('single-post');
@@ -54,8 +54,11 @@ function displayPost(post) {
 
     if (post.author?.name === loggedInUserName) {
         const deleteButton = createDeleteButton(post.id);
+        const editButton = createEditButton(post.id);
         postContainer.appendChild(deleteButton);
+        postContainer.appendChild(editButton);
     }
+
     document.body.appendChild(postContainer);
 }
 
@@ -65,4 +68,14 @@ function createDeleteButton(postId) {
     deleteButton.dataset.postId = postId; 
     deleteButton.addEventListener('click', onDeletePost);
     return deleteButton;
+}
+
+function createEditButton(postId) {
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
+    editButton.addEventListener('click', async () => {
+        localStorage.setItem('postId', JSON.stringify(postId));
+        window.location.href = `/post/edit/?id=${postId}`;
+    });
+    return editButton;
 }
