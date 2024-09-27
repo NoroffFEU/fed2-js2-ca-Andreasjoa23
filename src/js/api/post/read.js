@@ -9,7 +9,6 @@ export async function readPost(id) {
       });
       if (response.ok) {
           const data = await response.json();
-          console.log("Post:", data);
           return data;
       } else {
           console.error("Failed to fetch post:", response.status);
@@ -57,7 +56,6 @@ export async function readPostsByUser(name, limit = 12, page = 1, tag) {
     if (response.ok) {
       const data = await response.json();
       const posts = data.data;
-      console.log(`Posts by user ${name}:`, posts);
       return posts;
     }
   } catch (error) {

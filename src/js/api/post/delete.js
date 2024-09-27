@@ -9,7 +9,6 @@ export async function deletePost(id) {
         });
 
         if (response.ok) {
-            console.log(`Post is deleted successfully.`);
             return true; 
         } else {
             console.error(`Failed to delete post: ${response.status}`);

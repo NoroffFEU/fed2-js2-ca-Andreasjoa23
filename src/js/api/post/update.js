@@ -16,7 +16,6 @@ export async function updatePost(id, { title, body, tags, media }) {
 
         if (response.ok) {
             const data = await response.json();
-            console.log("Post updated:", data);
             return data.data;
         } else {
             const errorData = await response.json();

@@ -9,7 +9,6 @@ export async function register({ name, email, password }) {
   };
 
   try {
-    console.log("trying to register");
     const response = await fetch(API_AUTH_REGISTER, {
       method: "POST",
       headers: headers(),

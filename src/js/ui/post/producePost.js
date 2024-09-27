@@ -1,6 +1,5 @@
 export const renderPosts = (userPosts, id) => {
     const outerContainer = document.getElementById(id);
-    console.log("Posts:", userPosts);
 
     userPosts.forEach((post) => {
         const container = document.createElement("div");
@@ -29,7 +28,6 @@ export const renderPosts = (userPosts, id) => {
         viewPostBtn.addEventListener("click", async () => {
             window.location.href = "/post/";
             localStorage.setItem("postId", JSON.stringify(post.id));
-            console.log(post);
         });
 
         container.appendChild(title);

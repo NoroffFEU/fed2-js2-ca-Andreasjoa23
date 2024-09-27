@@ -16,7 +16,6 @@ export async function createPost({ title, body, tags = [], media = null }) {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("Post created:", data);
       return data.data;
     } else {
       const errorData = await response.json();
