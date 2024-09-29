@@ -1,6 +1,13 @@
 import { API_SOCIAL_POSTS } from "../constants";
 import { headers } from "../headers";
 
+/**
+ * Sends a DELETE request to the API to remove a post by its ID.
+ * 
+ * @param {number|string} id - The ID of the post to delete.
+ * @returns {Promise<boolean>} - A promise that resolves to `true` if the deletion was successful, or `false` if it failed.
+ */
+
 export async function deletePost(id) {
     try {
         const response = await fetch(`${API_SOCIAL_POSTS}/${id}`, {

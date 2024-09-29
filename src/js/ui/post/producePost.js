@@ -1,3 +1,11 @@
+/**
+ * Renders a list of user posts into the specified container in the DOM.
+ *
+ * @param {Array<Object>} userPosts - An array of post objects to render.
+ * @param {string} id - The ID of the DOM element where posts will be rendered.
+ * @returns {void}
+ */
+
 export const renderPosts = (userPosts, id) => {
     const outerContainer = document.getElementById(id);
 

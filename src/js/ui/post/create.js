@@ -1,5 +1,15 @@
 import { createPost } from "../../api/post/create";
 
+/**
+ * Handles the form submission for creating a new post. Extracts form data, including title, body, tags, and media,
+ * then calls the `createPost` function to send the data to the server.
+ * 
+ * If the post is successfully created, the form is reset, and the user is redirected to the homepage after a delay.
+ * 
+ * @param {Event} event - The form submit event.
+ * @returns {Promise<void>} - A promise that resolves when the post creation process is complete.
+ */
+
 export async function onCreatePost(event) {
     event.preventDefault(); 
     const title = event.target.title.value;
